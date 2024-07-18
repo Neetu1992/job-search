@@ -1,0 +1,74 @@
+<div class="container my-5">
+    <div class="row  justify-content-center align-center">
+        <div class="col-md-6 flex">
+            <h4 class="center">Find your Job</h4>
+            <div class="tab">
+                <button class="tablinks"
+                    [ngClass]="curDiv == 'Jobs' ? 'active' : ''"
+                    (click)="openTab('Jobs')">JOBS</button>
+
+                <button class="tablinks"
+                    [ngClass]="curDiv == 'Favorites' ? 'active' : ''"
+                    (click)="openTab('Favorites')">FAVORITES</button>
+            </div>
+
+            <!-- Tab content -->
+            <div *ngIf="curDiv == 'Jobs'" id="Jobs" class="tabcontent">
+                <div *ngFor="let data of allData;let i =index">
+                    <div *ngIf="isParentVisible">
+                        <div class="job-data mb-3">
+                            <img class="logo" [src]="data.companyLogo"
+                                alt="No Image">
+                            <a class="gotoJobDesc" (click)="getJobId(data.id)">
+                                <div class="flex-col">
+                                    <span class="title-s">{{data.title}}</span>
+                                    <div class="d-flex">
+                                        <span class="name-s">Company:
+                                            {{data.companyName}}&nbsp;&nbsp;</span>
+                                        <span class="name-s">Reference :
+                                            {{data.reference}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="fav" (click)="addFav(data)"><i
+                                    [ngStyle]="{'color': data.isSelected ? 'yellow' : ''}"
+                                    class="fa-regular fa-star"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isChildVisible">
+                    <a class="cursor-pointer" (click)="gotoJobs()"><i
+                            class="fa-solid fa-house"></i> Go Back</a>
+                    <app-job-description
+                        [data]="jobDescription"></app-job-description>
+                </div>
+            </div>
+
+            <div *ngIf="curDiv == 'Favorites'" id="Favorites"
+                class="tabcontent">
+                <div *ngIf="favItem.length; else noData">
+                    <div *ngFor="let data of favItem">
+                        <div class="job-data mb-3">
+                            <img class="logo" [src]="data.companyLogo"
+                                alt="No Image">
+                            <div class="flex-col">
+                                <span class="title-s">{{data.title}}</span>
+                                <div class="d-flex">
+                                    <span class="name-s">Company:
+                                        {{data.companyName}}&nbsp;&nbsp;</span>
+                                    <span class="name-s">Reference :
+                                        {{data.reference}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noData>
+                    <p class="text-center mt-2"> No Item </p>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>
+<footer></footer>

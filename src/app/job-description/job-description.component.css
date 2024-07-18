@@ -1,0 +1,25 @@
+.width-50 {
+    /* width: 20%; */
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.type {
+    display: inline-block;
+    background: #3d7db3;
+    padding: 0 10px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.font-s {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.font-wt {
+    font-weight: 700;
+}
