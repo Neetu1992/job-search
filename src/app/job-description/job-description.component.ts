@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { JobDescription } from '../model';
 
 @Component({
   selector: 'app-job-description',
@@ -10,7 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class JobDescriptionComponent implements OnInit {
   title: string = '';
-  @Input('data') data: any;
+  @Input('data') data: JobDescription;
 
   constructor() {}
 

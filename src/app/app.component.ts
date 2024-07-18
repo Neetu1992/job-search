@@ -9,6 +9,7 @@ import { JobDescriptionComponent } from './job-description/job-description.compo
 // Constant
 import { CONSTANT } from '../constant';
 import { map, Observable } from 'rxjs';
+import { Job, JobDescription } from './model';
 
 @Component({
   selector: 'app-root',
@@ -26,15 +27,15 @@ import { map, Observable } from 'rxjs';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  allData: any;
+  allData: Job[] = [];
   constant = CONSTANT;
   curDiv: string = '';
-  favItem: any = [];
+  favItem: Job[] = [];
   isClicked: string = '';
   isParentVisible = true;
   isChildVisible = false;
-  jobDescription: any = [];
-  resData: any = [];
+  jobDescription:JobDescription;
+  resData: Job[] = [];
 
   /**
    * Constructor
@@ -46,9 +47,9 @@ export class AppComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
-    this.http.get('/jobs').subscribe((data) => {
+    this.http.get<Array<Job>>('/jobs').subscribe((data) => {
       this.resData = data;
-      this.resData.forEach((obj: any) => {
+      this.resData.forEach((obj: Job) => {
         obj.isSelected = false; // Add a new key-value pair
       });
       this.allData = this.resData;
@@ -69,10 +70,10 @@ export class AppComponent implements OnInit {
    * On Click star icon
    * @param data
    */
-  addFav(data: any) {
+  addFav(data: Job) {
     if (data.isSelected) {
       data.isSelected = false;
-      let item = this.favItem.findIndex((el: any) => el.id === data.id);
+      let item = this.favItem.findIndex((el: Job) => el.id === data.id);
       this.favItem.splice(item, 1);
       localStorage.setItem(CONSTANT.FavItem, JSON.stringify(this.favItem));
     } else {
@@ -88,10 +89,10 @@ export class AppComponent implements OnInit {
    * On click get job id
    * @param data
    */
-  getJobId(id: any) {
+  getJobId(id: number) {
     this.isParentVisible = false;
     this.isChildVisible = true;
-    this.http.get(`/jobs/${id}`).subscribe((data: any) => {
+    this.http.get(`/jobs/${id}`).subscribe((data: JobDescription) => {
       this.jobDescription = data;
     });
   }
