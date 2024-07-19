@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
-    this.http.get<Array<Job>>('/jobs').subscribe((data) => {
+    this.http.get('/jobs').subscribe((data: Array<Job>) => {
       this.resData = data;
       this.resData.forEach((obj: Job) => {
         obj.isSelected = false; // Add a new key-value pair
