@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
 
   /**
    * Constructor
-   * @param HttpClient:http
    */
   constructor(private http: HttpClient) {}
 
