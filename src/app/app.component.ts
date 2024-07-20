@@ -8,7 +8,6 @@ import { RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { JobDescriptionComponent } from './job-description/job-description.component';
 // Constant
 import { CONSTANT } from '../constant';
-import { map, Observable } from 'rxjs';
 import { Job, JobDescription } from './model';
 
 @Component({
@@ -39,7 +38,7 @@ export class AppComponent implements OnInit {
 
   /**
    * Constructor
-   * Router(route)
+   * @param HttpClient:http
    */
   constructor(private http: HttpClient) {}
 
