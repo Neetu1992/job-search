@@ -31,6 +31,7 @@ export class JobsComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
+    console.log('hi')
     this.allData = JSON.parse(localStorage.getItem('jobData'));
   }
 
