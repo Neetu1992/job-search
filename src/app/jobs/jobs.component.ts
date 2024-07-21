@@ -40,13 +40,11 @@ export class JobsComponent implements OnInit {
    */
   addFav(data: Job) {
     if (data.isSelected) {
-      data.isSelected = false;
       let index = this.allData.findIndex((el:Job) => el.id === data.id);
       this.allData[index].isSelected = false;
       localStorage.setItem('jobData', JSON.stringify(this.allData));
 
     } else {
-      data.isSelected = true;
       let index = this.allData.findIndex((el:Job) => el.id === data.id);
       this.allData[index].isSelected = true;
       localStorage.setItem('jobData', JSON.stringify(this.allData));

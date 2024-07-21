@@ -64,18 +64,6 @@ export class AppComponent implements OnInit {
   }
 
   /**
-   * Convert string to boolean
-   * @param value
-   * @returns
-   */
-  parseBoolean(value: string): boolean {
-    if (value) {
-      return value.toLowerCase() === 'true';
-    }
-    return false;
-  }
-
-  /**
    * On click Tabs
    * @param data
    */
