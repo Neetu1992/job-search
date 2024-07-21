@@ -48,9 +48,7 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     this.curDiv = CONSTANT.Jobs;
-
     let jobData = localStorage.getItem('jobData');
-
     if (!jobData) {
       this.http.get('/jobs').subscribe((data: Array<Job>) => {
         this.resData = data;
