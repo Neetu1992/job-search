@@ -27,7 +27,8 @@ export class JobsComponent implements OnInit {
    * Constructor
    * @param HttpClient(http)
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * Life cycle hook

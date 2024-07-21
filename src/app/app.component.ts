@@ -30,24 +30,22 @@ import { Job, JobDescription } from './model';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  allData: Job[] = [];
   constant = CONSTANT;
   curDiv: string = '';
   favItem: Job[] = [];
-  jobDescription: JobDescription;
   resData: Job[] = [];
 
   /**
    * Constructor
    */
-  constructor() {}
+  constructor() {
+  }
 
   /**
    * Life cycle hook
    */
   ngOnInit(): void {
     this.curDiv = CONSTANT.Jobs;
-    this.allData = JSON.parse(localStorage.getItem('jobData'));
   }
 
   /**
