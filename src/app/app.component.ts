@@ -9,7 +9,7 @@ import {
 // Third party library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // Common
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 // Constant
 import { CONSTANT } from '../constant';
 // Model
@@ -39,28 +39,15 @@ export class AppComponent implements OnInit {
 
   /**
    * Constructor
-   * @param HttpClient(http)
    */
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   /**
    * Life cycle hook
    */
   ngOnInit(): void {
     this.curDiv = CONSTANT.Jobs;
-    let jobData = localStorage.getItem('jobData');
-    if (!jobData) {
-      this.http.get('/jobs').subscribe((data: Array<Job>) => {
-        this.resData = data;
-        this.resData.forEach((obj: Job) => {
-          obj.isSelected = false; // Add a new key-value pair
-        });
-        this.allData = this.resData;
-        localStorage.setItem('jobData', JSON.stringify(this.allData));
-      });
-    } else {
-      this.allData = JSON.parse(jobData);
-    }
+    this.allData = JSON.parse(localStorage.getItem('jobData'));
   }
 
   /**

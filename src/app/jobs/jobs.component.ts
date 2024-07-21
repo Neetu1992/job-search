@@ -1,12 +1,13 @@
 // Core modules
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// COnstant
+// Constant
 import { CONSTANT } from '../../constant';
 // Model
 import { Job, JobDescription } from '../model';
 // Common
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-jobs',
@@ -24,15 +25,28 @@ export class JobsComponent implements OnInit {
 
   /**
    * Constructor
+   * @param HttpClient(http)
    */
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   /**
    * Life cycle hook
    */
   ngOnInit(): void {
-    console.log('hi')
-    this.allData = JSON.parse(localStorage.getItem('jobData'));
+    let jobData = localStorage.getItem('jobData');
+    if (!jobData) {
+      this.http.get('/jobs').subscribe((data: Array<Job>) => {
+        let resData = data;
+        resData.forEach((obj: Job) => {
+          obj.isSelected = false; // Add a new key-value pair
+        });
+        console.log('1');
+        this.allData = resData;
+        localStorage.setItem('jobData', JSON.stringify(this.allData));
+      });
+    } else {
+      this.allData = JSON.parse(jobData);
+    }
   }
 
   /**
@@ -41,12 +55,11 @@ export class JobsComponent implements OnInit {
    */
   addFav(data: Job) {
     if (data.isSelected) {
-      let index = this.allData.findIndex((el:Job) => el.id === data.id);
+      let index = this.allData.findIndex((el: Job) => el.id === data.id);
       this.allData[index].isSelected = false;
       localStorage.setItem('jobData', JSON.stringify(this.allData));
-
     } else {
-      let index = this.allData.findIndex((el:Job) => el.id === data.id);
+      let index = this.allData.findIndex((el: Job) => el.id === data.id);
       this.allData[index].isSelected = true;
       localStorage.setItem('jobData', JSON.stringify(this.allData));
     }
