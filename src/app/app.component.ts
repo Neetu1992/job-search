@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
+    console.log('hi')
     this.curDiv = CONSTANT.Jobs;
 
     let jobData = localStorage.getItem('jobData');
