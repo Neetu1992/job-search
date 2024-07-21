@@ -1,18 +1,20 @@
+<a class="cursor-pointer" [routerLink]="['/jobs']"><i
+                            class="fa-solid fa-house"></i> Go Back</a>
 <div class="row">
     <div class="col-md-3 px-0 mx-0">
-        <img class="width-50" [src]="data?.companyLogo">
+        <img class="width-50" src="{{jobDescription?.companyLogo}}">
     </div>
     <div class="col-md-9 flex px-0 mx-0">
-        <p class="title">{{data?.companyName}} - {{data?.title}}</p>
-        <p class="type">{{data?.types}}</p>
-        <p class="type">{{data?.industries}}</p>
+        <p class="title">{{jobDescription?.companyName}} - {{jobDescription?.title}}</p>
+        <p class="type">{{jobDescription?.types}}</p>
+        <p class="type">{{jobDescription?.industries}}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <p class="font-s"><span class="font-wt">Publish date:</span> {{data?.publishDate | date: 'd/M/y'}}</p>
-        <p class="font-s"><span class="font-wt">Location:</span> {{data?.location}}</p>
-        <p class="font-s"><span class="font-wt">Reference:</span> {{data?.reference}}</p>
-        <p class="font-s" ><span class="font-wt">Description:</span> <span [innerHTML]="data?.description"></span> </p>
+        <p class="font-s"><span class="font-wt">Publish date:</span> {{jobDescription?.publishDate | date: 'd/M/y'}}</p>
+        <p class="font-s"><span class="font-wt">Location:</span> {{jobDescription?.location}}</p>
+        <p class="font-s"><span class="font-wt">Reference:</span> {{jobDescription?.reference}}</p>
+        <p class="font-s" ><span class="font-wt">Description:</span> <span [innerHTML]="jobDescription?.description"></span> </p>
     </div>
 </div>

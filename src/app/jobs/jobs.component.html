@@ -1,0 +1,23 @@
+<div *ngFor="let data of allData;let i =index">
+    <div *ngIf="isParentVisible">
+        <div class="job-data mb-3">
+            <img class="logo" [src]="data.companyLogo"
+                alt="No Image">
+            <a class="gotoJobDesc"
+                [routerLink]="['/job', data.id]" (click)="gotoJobs()">
+                <div class="flex-col">
+                    <span class="title-s">{{data.title}}</span>
+                    <div class="d-flex">
+                        <span class="name-s">Company:
+                            {{data.companyName}}&nbsp;&nbsp;</span>
+                        <span class="name-s">Reference :
+                            {{data.reference}}</span>
+                    </div>
+                </div>
+            </a>
+            <div class="fav" (click)="addFav(data)"><i
+                    [ngStyle]="{'color': data.isSelected ? 'yellow' : ''}"
+                    class="fa-regular fa-star"></i></div>
+        </div>
+    </div>
+</div>

@@ -1,26 +1,30 @@
 // Angular core
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import {
+  RouterLinkActive,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
+// Third party library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// Common
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
-// Component
-import { JobDescriptionComponent } from './job-description/job-description.component';
 // Constant
 import { CONSTANT } from '../constant';
+// Model
 import { Job, JobDescription } from './model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
     RouterModule,
     RouterLinkActive,
     HttpClientModule,
     FontAwesomeModule,
-    JobDescriptionComponent,
+    RouterOutlet,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -30,14 +34,12 @@ export class AppComponent implements OnInit {
   constant = CONSTANT;
   curDiv: string = '';
   favItem: Job[] = [];
-  isClicked: string = '';
-  isParentVisible = true;
-  isChildVisible = false;
-  jobDescription:JobDescription;
+  jobDescription: JobDescription;
   resData: Job[] = [];
 
   /**
    * Constructor
+   * @param HttpClient(http)
    */
   constructor(private http: HttpClient) {}
 
@@ -45,15 +47,34 @@ export class AppComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
-    this.http.get('/jobs').subscribe((data: Array<Job>) => {
-      this.resData = data;
-      this.resData.forEach((obj: Job) => {
-        obj.isSelected = false; // Add a new key-value pair
-      });
-      this.allData = this.resData;
-    });
     this.curDiv = CONSTANT.Jobs;
-    localStorage.setItem(CONSTANT.FavItem, JSON.stringify(this.favItem));
+
+    let jobData = localStorage.getItem('jobData');
+
+    if (!jobData) {
+      this.http.get('/jobs').subscribe((data: Array<Job>) => {
+        this.resData = data;
+        this.resData.forEach((obj: Job) => {
+          obj.isSelected = false; // Add a new key-value pair
+        });
+        this.allData = this.resData;
+        localStorage.setItem('jobData', JSON.stringify(this.allData));
+      });
+    } else {
+      this.allData = JSON.parse(jobData);
+    }
+  }
+
+  /**
+   * Convert string to boolean
+   * @param value
+   * @returns
+   */
+  parseBoolean(value: string): boolean {
+    if (value) {
+      return value.toLowerCase() === 'true';
+    }
+    return false;
   }
 
   /**
@@ -62,44 +83,10 @@ export class AppComponent implements OnInit {
    */
   openTab(data: string) {
     this.curDiv = data;
-  }
-
-  /**
-   * On Click star icon
-   * @param data
-   */
-  addFav(data: Job) {
-    if (data.isSelected) {
-      data.isSelected = false;
-      let item = this.favItem.findIndex((el: Job) => el.id === data.id);
-      this.favItem.splice(item, 1);
-      localStorage.setItem(CONSTANT.FavItem, JSON.stringify(this.favItem));
-    } else {
-      data.isSelected = true;
-      let favItems = localStorage.getItem(CONSTANT.FavItem) ?? '';
-      this.favItem = JSON.parse(favItems);
-      this.favItem.push(data);
-      localStorage.setItem(CONSTANT.FavItem, JSON.stringify(this.favItem));
+    this.favItem = [];
+    if (this.curDiv === this.constant.Favorites) {
+      let allData = JSON.parse(localStorage.getItem('jobData'));
+      this.favItem = allData.filter((el) => el.isSelected);
     }
-  }
-
-  /**
-   * On click get job id
-   * @param data
-   */
-  getJobId(id: number) {
-    this.isParentVisible = false;
-    this.isChildVisible = true;
-    this.http.get(`/jobs/${id}`).subscribe((data: JobDescription) => {
-      this.jobDescription = data;
-    });
-  }
-
-  /**
-   * Show hide job description
-   */
-  gotoJobs() {
-    this.isParentVisible = true;
-    this.isChildVisible = false;
   }
 }
