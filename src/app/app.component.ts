@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
   constant = CONSTANT;
   curDiv: string = '';
   favItem: Job[] = [];
-  resData: Job[] = [];
 
   /**
    * Constructor
