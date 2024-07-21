@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 // Constant
 import { CONSTANT } from '../constant';
 // Model
-import { Job, JobDescription } from './model';
+import { Job } from './model';
 
 @Component({
   selector: 'app-root',
