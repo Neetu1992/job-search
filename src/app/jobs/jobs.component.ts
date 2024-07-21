@@ -34,7 +34,7 @@ export class JobsComponent implements OnInit {
    * Life cycle hook
    */
   ngOnInit(): void {
-    let jobData = localStorage.getItem('jobData');
+    let jobData = localStorage.getItem(this.constant.jobData);
     if (!jobData) {
       this.http.get('/jobs').subscribe((data: Array<Job>) => {
         let resData = data;
@@ -42,7 +42,7 @@ export class JobsComponent implements OnInit {
           obj.isSelected = false; // Add a new key-value pair
         });
         this.allData = resData;
-        localStorage.setItem('jobData', JSON.stringify(this.allData));
+        localStorage.setItem(this.constant.jobData, JSON.stringify(this.allData));
       });
     } else {
       this.allData = JSON.parse(jobData);
@@ -57,11 +57,11 @@ export class JobsComponent implements OnInit {
     if (data.isSelected) {
       let index = this.allData.findIndex((el: Job) => el.id === data.id);
       this.allData[index].isSelected = false;
-      localStorage.setItem('jobData', JSON.stringify(this.allData));
+      localStorage.setItem(this.constant.jobData, JSON.stringify(this.allData));
     } else {
       let index = this.allData.findIndex((el: Job) => el.id === data.id);
       this.allData[index].isSelected = true;
-      localStorage.setItem('jobData', JSON.stringify(this.allData));
+      localStorage.setItem(this.constant.jobData, JSON.stringify(this.allData));
     }
   }
 

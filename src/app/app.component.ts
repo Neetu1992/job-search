@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     this.curDiv = data;
     this.favItem = [];
     if (this.curDiv === this.constant.Favorites) {
-      let allData = JSON.parse(localStorage.getItem('jobData'));
+      let allData = JSON.parse(localStorage.getItem(this.constant.jobData));
       this.favItem = allData.filter((el) => el.isSelected);
     }
   }

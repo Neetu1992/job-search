@@ -1,5 +1,5 @@
 export const CONSTANT = {
-  FavItem: 'favItem',
   Jobs: 'Jobs',
-  Favorites:'Favorites'
+  Favorites:'Favorites',
+  jobData: 'jobData'
 };
