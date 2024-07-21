@@ -40,7 +40,6 @@ export class JobsComponent implements OnInit {
         resData.forEach((obj: Job) => {
           obj.isSelected = false; // Add a new key-value pair
         });
-        console.log('1');
         this.allData = resData;
         localStorage.setItem('jobData', JSON.stringify(this.allData));
       });
