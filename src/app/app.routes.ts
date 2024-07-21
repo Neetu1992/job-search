@@ -1,5 +1,6 @@
+// Core module
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+// Component
 import { JobDescriptionComponent } from './job-description/job-description.component';
 import { JobsComponent } from './jobs/jobs.component';
 
